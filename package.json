@@ -1,0 +1,15 @@
+{
+  "name": "order-application",
+  "version": "1.0.0",
+  "description": "Order Application ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "author": "ichaspg",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
