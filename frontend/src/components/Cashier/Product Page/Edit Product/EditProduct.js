@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './editproduct.css'
 
-const EditProduct = ({product,handleCancel}) => {
+const EditProduct = ({product,handleCancel,reRender}) => {
   const [productName,setProductName] = useState(product.name)
   const [productCategory,setProductCategory] = useState(product.category)
   const [productPrice,setProductPrice] = useState(product.price)
@@ -55,6 +55,7 @@ const EditProduct = ({product,handleCancel}) => {
       console.log(err)
     })
     handleCancel(false)
+    reRender(1)
     // window.location.reload();
   }
   return (

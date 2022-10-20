@@ -5,7 +5,7 @@ import './addproduct.css'
 import 'react-dropdown/style.css';
 
 
-const AddProduct = ({handleCancel}) => {
+const AddProduct = ({handleCancel,reRender}) => {
   const [productName,setProductName] = useState('')
   const [productCategory,setProductCategory] = useState('Signature')
   const [productPrice,setProductPrice] = useState('')
@@ -14,7 +14,7 @@ const AddProduct = ({handleCancel}) => {
   const [preview,setPreview] = useState('')
 
   const loadImage = (e) => {
-    const image = e.target.file[0]
+    const image = e.target.file
     setFile(image)
     setPreview(URL.createObjectURL(image))
   }
@@ -43,7 +43,8 @@ const AddProduct = ({handleCancel}) => {
       console.log(err)
     })
     handleCancel(false)
-    window.location.reload();
+    reRender(1)
+    // window.location.reload();
   }
   return (
     <div className='popup-cont'>

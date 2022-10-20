@@ -7,7 +7,7 @@ const AdminLogin = () => {
   const [password,setPassword] = useState('')
   const navigate = useNavigate()
   const handleSubmit = () => {
-    navigate('/cashier')
+    
   }
   return (
     <div className='admin-log-cont'>

@@ -14,14 +14,21 @@ import useFetch from '../../../useFetch'
 import AddProduct from './Add Product/AddProduct'
 import EditProduct from './Edit Product/EditProduct'
 import DeleteProduct from './Delete Product/DeleteProduct'
+import axios from 'axios'
 
 const Product = () => {
   //================Fetch Data dari Database=================================
   const {data:foods,isLoading,error} =useFetch('http://localhost:5000/api/foods')
+  const getData = async () => {
+   const {data:foodsUpdate} = await axios.get('http://localhost:5000/api/foods')
+   setData(foodsUpdate)
+  }
   const [data,setData] = useState(foods)
+  const [counter,setCounter] = useState(1)
   useEffect(()=>{
-    setData(foods)
-  },[foods])
+    getData()
+    console.log('reRender')
+  },[foods,counter])
   //======================Category FIlter======================================
   const categoryFilter = (categoryItem) => {
     const result = foods.filter((filteredFoods) => {
@@ -62,8 +69,8 @@ const Product = () => {
     <>
     <div className="cashier-cont">
       {deleteMenu && <DeleteProduct product={selecetedProduct} handleCancel={value => setDeleteMenu(value)}/>}
-      {addMenu && <AddProduct handleCancel={value => setAddMenu(value)}/>}
-      {editMenu && <EditProduct product={selecetedProduct} handleCancel={value => setEditMenu(value)}/>}
+      {addMenu && <AddProduct handleCancel={value => setAddMenu(value)} reRender = {value => setCounter(value + counter)}/>}
+      {editMenu && <EditProduct product={selecetedProduct} handleCancel={value => setEditMenu(value)} reRender = {value => setCounter(value + counter)}/>}
       <Sidebar/>
       <div className="product-page-cont">
         <div className="product-page-header">
