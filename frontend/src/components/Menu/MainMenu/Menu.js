@@ -12,7 +12,7 @@ const Menu = () => {
   return (
     <>
     <div className='Main'>
-      <p className='greet'>Hello {user.name}</p>
+      <p className='greet'>Hello {user?.name}</p>
       <p className='title'>Find your Food</p>
       <FoodListSmall/>
     </div>

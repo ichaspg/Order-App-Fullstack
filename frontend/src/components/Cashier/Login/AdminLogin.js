@@ -1,18 +1,33 @@
 import React, { useState } from 'react'
 import './admin.css'
 import { Link, useNavigate } from 'react-router-dom'
+import axios from "axios";
 
 const AdminLogin = () => {
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
   const navigate = useNavigate()
-  const handleSubmit = () => {
-    
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const adminData = {
+      userName: username,
+      password: password
+    }
+    const url = "http://localhost:5000/api/admin/login"
+    axios.post(url,adminData)
+    .then(res => {
+      console.log(res)
+      localStorage.setItem('admin',JSON.stringify(res.data))
+      navigate('/cashier')
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
   return (
-    <div className='admin-log-cont'>
+    <div className='admin-log-cont' >
       <h1>Employee Login</h1>
-      <form action="" className='form-admin'>
+      <form  className='form-admin' onSubmit={handleSubmit}>
         <label htmlFor="username">User Name
           <input 
           type="text" 
@@ -24,7 +39,7 @@ const AdminLogin = () => {
         </label>
         <label htmlFor="passowrd">Password
           <input 
-          type="text" 
+          type="password" 
           placeholder='Password' 
           name='password' 
           className='txt-input'
@@ -32,7 +47,7 @@ const AdminLogin = () => {
           />
         </label>
         <Link to={'/'}>Having Trouble Sign In ?</Link>
-        <input type="submit" value="Sign In" className='admin-submit-btn' onClick={()=> handleSubmit()}/>
+        <button type="submit" className='admin-submit-btn'>Sign IN</button>
       </form>
     </div>
   )

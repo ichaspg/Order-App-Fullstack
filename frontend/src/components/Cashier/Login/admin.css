@@ -11,6 +11,37 @@
   height: 400px;
   border-radius: 20px;
 }
+.admin-log-cont-red {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 250px;
+  border-radius: 20px;
+}
+.admin-log-cont-red h1 {
+  font-size: 24px;
+  margin-top: auto;
+}
+
+.admin-log-cont-red button {
+  width: 200px;
+  height: 40px;
+  margin: auto;
+  background: #5a7360;
+  border-radius: 15px;
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 0;
+}
 
 .admin-log-cont h1 {
   margin: 30px 0 20px 0;

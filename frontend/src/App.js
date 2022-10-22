@@ -14,6 +14,9 @@ import QrisPayment from './components/Payment/QRIS Payment/QrisPayment';
 import CashPayment from './components/Payment/Cash Payment/CashPayment'
 import Redirect from './components/Redirect/Redirect';
 import LockRoute from './components/features/Lock Route/LockRoute';
+import AuthRoute from './components/features/Lock Route/AuthRoute';
+import RedirectLogin from './components/Cashier/Login/RedirectLogin';
+
 
 function App() {
   return (
@@ -30,10 +33,14 @@ function App() {
       <Route path='/qrispayment' element={<QrisPayment/>} />
       <Route path='/cashpayment' element={<CashPayment/>} />
       <Route path='/adminlogin' element={<AdminLogin/>}/>
+    <Route element={<AuthRoute/>}>
       <Route path='/order' element={<Home />}/>
       <Route path='/cashier' element={<Cashier/>}/>
       <Route path='/product' element={<Product/>}/>
+    </Route>
       <Route path='/redirect' element={<Redirect/>}/>
+      <Route path='/redirectadmin' element={<RedirectLogin/>}/>
+      
       
     </Routes>
   );

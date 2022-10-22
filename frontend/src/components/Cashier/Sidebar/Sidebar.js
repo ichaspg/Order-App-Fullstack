@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/icongreen-sm.svg'
 import logout from '../../../assets/logout.svg'
 import order from '../../../assets/order.svg'
@@ -9,6 +9,11 @@ import report from '../../../assets/report.svg'
 import './sidebar.css'
 
 const Sidebar = () => {
+  const navigate = useNavigate()
+  const onLogout = () => {
+    localStorage.removeItem('admin')
+    navigate('/adminlogin')
+  }
   return (
     <div className='sidebar-cont'>
       <img src={logo} alt="" className='cashier-logo'/>
@@ -26,7 +31,7 @@ const Sidebar = () => {
             <p className="menu-name">Product</p>
           </Link>
         </div>
-        <div className="logout">
+        <div className="logout" onClick={() => onLogout()}>
           <img src={logout} alt="" className='logout-logo' />
           <p className="menu-name">Logout</p>
         </div>

@@ -7,7 +7,7 @@ const LockRoute = () => {
   const user = JSON.parse(localStorage.getItem('user'))
   const [status,setStatus] = useState(true)
   useEffect(() => {
-    if (user?.status === null) {
+    if (user?.status && user.name === null) {
     setStatus(true)
   } if (user?.status === 'Ordering') {
     setStatus(true)
