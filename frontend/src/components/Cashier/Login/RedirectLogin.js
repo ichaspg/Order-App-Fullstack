@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import forbiddenicon from '../../../assets/403.svg'
 
 const RedirectLogin = () => {
   const navigate = useNavigate()
@@ -7,9 +8,11 @@ const RedirectLogin = () => {
     navigate('/adminlogin')
   }
   return (
-    <div className='admin-log-cont-red' >
-      <h1>Please Log In First !!</h1>
-      <button className='admin-submit-btn' onClick={() => redirectButton()}>Back to Login Page</button>
+    <div className="forb-container">
+      <img src={forbiddenicon} alt="forb-image" className='403-image' />
+      <h3>Access Denied</h3>
+      <p>You're not allowed to access this page</p>
+      <button onClick={() => redirectButton()}>Go to Login Page</button>
     </div>
   )
 }

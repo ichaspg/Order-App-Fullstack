@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import useFetch from '../../../useFetch'
@@ -12,20 +13,43 @@ const Home = () => {
   const [deleteBtn,setDeleteBtn] = useState(false);
   const [paymentBtn,setPaymentBtn] = useState(false);
   const [order,setOrder] = useState(data)
+  const [status,setStatus] = useState()
   useEffect(() => {
     setOrder(data)
   },[data])
   const handleClick = (i) => {
-    setSelectedOrder(order[i])
-    console.log(selectedOrder)
+    const selected = data.find(order => order._id === i)
+    setSelectedOrder(selected)
   }
   const deleteOrderBtn = (i) => {
-    console.log(order[i])
     setDeleteBtn(true)
   }
 
   const checkPaymentBtn = (i) => {
     setPaymentBtn(true)
+  }
+
+  const categoryFilter = (categoryOrder) => {
+    const result = data.filter((filteredOrder) => {
+      return filteredOrder.status === categoryOrder
+    });
+  setOrder(result)
+  }
+
+  console.log(selectedOrder);
+
+
+  const onComplete = (i) => {
+    setStatus({status : 'Complete'})
+    console.log(i);
+    axios.patch('http://localhost:5000/api/order/' + i,status)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    // window.location.reload();
   }
   return (
     <>
@@ -36,9 +60,15 @@ const Home = () => {
       <div className="home-cont">
           <div className="order-list-admin">
           <h1 className='home-ttl'>Order List</h1>
+          <div className="category-order-cont">
+            <button className='category-order' type='button' onClick={() => setOrder(data)}>All Order</button>
+            <button className='category-order' type='button' onClick={() => categoryFilter('Waiting for Payment')}>Waiting Payment</button>
+            <button className='category-order' type='button' onClick={() => categoryFilter('Paid')}>Paid</button>
+            <button className='category-order' type='button' onClick={() => categoryFilter('Complete')}>Complete</button>
+          </div>
             <div className="order-card-list">
             {order.map((item,index) => (
-              <div className="order-card" key={item._id} onClick={()=> handleClick(index)}>
+              <div className="order-card" key={item._id} onClick={()=> handleClick(item._id)}>
               <div className="table-type">
                 <p className="order-table">Table {item.tablenumber}</p>
                 <p>{`${item.orderType}`}</p>
@@ -50,6 +80,7 @@ const Home = () => {
                 {item.status === 'Waiting for Payment' && <p className="order-status-wait">{item.status}</p>}
                 {item.status === 'Checking Payment' && <p className="order-status-check">{item.status}</p>}
                 {item.status === 'Paid' && <p className="order-status-paid">{item.status}</p>}
+                {item.status === 'Complete' && <p className="order-status-complete">{item.status}</p>}
               </div>
             ))}
           </div>
@@ -71,7 +102,7 @@ const Home = () => {
               <div className="selected-order">
                 {selectedOrder.order.item.map((item)=> (
                   <div className="order-detail-list" key={item._id}>
-                    <img src={`http://localhost:5000/${item.image}`} alt="" className='order-img'/>
+                    <img src={`http://localhost:5000/${item.image}`} alt="" className='order-img' key={item._id}/>
                     <div className="product-detail">
                       <p className="item-name">{item.name} <span>x{item.quantity}</span></p>
                       <p className="item-price">Rp.{item.totalPrice}</p>
@@ -97,7 +128,7 @@ const Home = () => {
                   <p>Rp.{selectedOrder.total}</p>
                 </div>
               </div>
-              <button className='complete-btn'>Complete Transaction</button>
+              <button className='complete-btn' onClick={() => onComplete(selectedOrder._id)}>Complete Transaction</button>
             </div>
             }
           </div>

@@ -91,3 +91,26 @@ form a {
   font-size: 20px;
   line-height: 30px;
 }
+
+.forb-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.forb-container h3 {
+  margin: 0;
+}
+
+.forb-container button {
+  padding: 12px 32px;
+  gap: 10px;
+  width: 186px;
+  height: 38px;
+  background: #5a7360;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  margin: 10px;
+}
