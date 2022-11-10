@@ -56,13 +56,14 @@ const AddProduct = ({handleCancel,reRender}) => {
               {preview ? (
                 <img src={preview} alt="" className='add-prod-img' />
                 ):<img src={imageicon} alt="" className='add-prod-img' />}
-                <input type='file' className='add-img-btn' onChange={onInputChange} />
+                <input type='file' className='add-img-btn' onChange={onInputChange} required />
               </div>
               <p>
                 <label htmlFor="name">Name</label>
                 <input 
                 type="text"
                 placeholder='Item Name'
+                required
                 onChange={(e) => setProductName(e.target.value)}
                  />
               </p>
@@ -82,7 +83,7 @@ const AddProduct = ({handleCancel,reRender}) => {
               <p>
                 <label htmlFor="price">Price</label>
                 <input 
-                type="text"
+                type="number"
                 placeholder='Item Price'
                 onChange={(e) => setProductPrice(e.target.value)}
                  />
@@ -93,12 +94,13 @@ const AddProduct = ({handleCancel,reRender}) => {
                 type="text"
                 placeholder='Item Description'
                 onChange={(e) => setProductDesc(e.target.value)}
+                required
                  />
               </p>
             </form>
           </div>
           <div className="add-btn-cont">
-            <input type="submit" value="Add Item" onClick={() => handleSubmit()} />
+            {productName && productPrice && productCategory && productDesc && file && <input type="submit" value="Add Item" onClick={() => handleSubmit()} />}
             <button className='cancel-add-btn' onClick={() => handleCancel(false)}>Cancel</button>
           </div>
       </div>

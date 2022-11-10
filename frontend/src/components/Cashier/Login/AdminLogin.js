@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import './admin.css'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios";
+import ErrorModal from './ErrorModal';
 
 const AdminLogin = () => {
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
+  const [error,setError] = useState(false)
   const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,10 +24,12 @@ const AdminLogin = () => {
     })
     .catch(err => {
       console.log(err);
+      setError(true)
     })
   }
   return (
     <div className='admin-log-cont' >
+    {error && <ErrorModal handleCancel = {value => setError(value)}/>}
       <h1>Employee Login</h1>
       <form  className='form-admin' onSubmit={handleSubmit}>
         <label htmlFor="username">User Name
@@ -34,6 +38,7 @@ const AdminLogin = () => {
           placeholder='Username' 
           name='username' 
           className='txt-input'
+          required
           onChange={(e) => setUsername(e.target.value)}
           />
         </label>
@@ -43,11 +48,11 @@ const AdminLogin = () => {
           placeholder='Password' 
           name='password' 
           className='txt-input'
+          required
           onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <Link to={'/'}>Having Trouble Sign In ?</Link>
-        <button type="submit" className='admin-submit-btn'>Sign IN</button>
+        <button type="submit" className='admin-submit-btn'>Sign In</button>
       </form>
     </div>
   )

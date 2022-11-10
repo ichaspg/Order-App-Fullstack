@@ -19,7 +19,7 @@
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   width: 674px;
-  height: 722px;
+  height: 762px;
   padding: 20px 50px;
 }
 
@@ -86,6 +86,19 @@
 .edit-btn-cont {
   display: flex;
   align-self: flex-end;
+}
+
+.edit-form form p select {
+  background: #dee3df;
+  border-radius: 20px;
+  padding: 0px 16px;
+  gap: 10px;
+  border: none;
+  width: 685px;
+  height: 48px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
 }
 
 .edit-btn-cont input {

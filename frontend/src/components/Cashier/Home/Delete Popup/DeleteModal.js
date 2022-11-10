@@ -17,7 +17,7 @@ const DeleteProduct = ({order,handleCancel}) => {
     <div className='popup-cont'>
       <div className="delete-cont">
         <div className="delete-desc">
-          <p className='delete-ttl'>Are you sure want to delete this menu?</p>
+          <p className='delete-ttl'>Are you sure want to delete this order?</p>
           <p className="delete-warning">This action can't be undo</p>
         </div>
         <div className="delete-btn-cont">

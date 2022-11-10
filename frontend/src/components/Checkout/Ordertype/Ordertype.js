@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import takeawayicon from '../../../assets/takeaway.svg'
 import dineinicon from '../../../assets/dinein.svg'
 import './ordertype.css'
@@ -14,10 +14,11 @@ const Ordertype = ({cartItems,handleClose}) => {
   const orderInfo = useSelector((state) => state.order.orderDetail)
   const navigate = useNavigate();
   const dispacth = useDispatch();
-  console.log(userInfo)
+  const [type,setType] = useState()
 
 
   const handleClick = (type) => {
+    setType(type)
     dispacth(orderActions.addOrderType(type))
     dispacth(orderActions.userInfo({
       ...userInfo,
@@ -28,7 +29,6 @@ const Ordertype = ({cartItems,handleClose}) => {
 
   const confirmButtonClicked = () => {
     localStorage.setItem('user',JSON.stringify(userInfo))
-    console.log(userInfo)
     navigate('/payment')
   }
  
@@ -47,7 +47,7 @@ const Ordertype = ({cartItems,handleClose}) => {
             Take Away
           </button>
         </div>
-          <button className="confirm-btn" onClick={()=> confirmButtonClicked()}>Confirm</button>
+          {type && <button className="confirm-btn" onClick={()=> confirmButtonClicked()}>Confirm</button>}
       </div>
     </div>
   )

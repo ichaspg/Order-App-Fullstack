@@ -73,7 +73,7 @@ const FoodListSmall = () => {
                 onChange={searchText.bind(this)}
                 />
         </div>
-        <Carousel />
+        {/* <Carousel /> */}
         <div className="category-btn-cont">
         <motion.div ref={catCarousel} className='category-carousel'>
             <motion.div 

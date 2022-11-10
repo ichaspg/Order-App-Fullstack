@@ -140,79 +140,6 @@ body {
   margin: 0 auto;
 }
 
-/* order cart */
-/* .order-cart {
-  background-color: white;
-  padding: 40px 26px;
-  gap: 10px;
-  margin-left: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.order-cart h1 {
-  align-self: flex-start;
-}
-
-.order-cart-list {
-  max-height: 400px;
-  overflow: hidden;
-  overflow-y: scroll;
-}
-.order-item-cashier {
-  display: flex;
-  align-items: center;
-  width: 364px;
-  height: 80px;
-  margin: 10px 0;
-}
-
-.order-item-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
-}
-
-.order-item-desc {
-  display: flex;
-  flex-direction: column;
-  margin: 0 5px;
-}
-
-.order-item-name {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: #353535;
-}
-
-.order-item-price {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  color: #353535;
-}
-
-.addorder-btn {
-  width: 364px;
-  height: 48px;
-  border: none;
-  background: #5a7360;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  color: #ffffff;
-}
-
-.out-desc {
-  font-size: 16px;
-  color: #5a7360;
-  font-weight: 700;
-} */
-
 /* media queries responsive */
 @media (min-aspect-ratio: 16/9) {
 }
@@ -442,6 +369,126 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+  }
+  .order-cart h1 {
+    align-self: flex-start;
+  }
+
+  .order-cart-list {
+    max-height: 400px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  .order-item-cashier {
+    display: flex;
+    align-items: center;
+    width: 364px;
+    height: 80px;
+    margin: 10px 0;
+  }
+
+  .order-item-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+  }
+
+  .order-item-desc {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+  }
+
+  .order-item-name {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #353535;
+  }
+
+  .order-item-price {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #353535;
+  }
+
+  .addorder-btn {
+    width: 364px;
+    height: 48px;
+    border: none;
+    background: #5a7360;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+  }
+
+  .out-desc {
+    font-size: 16px;
+    color: #5a7360;
+    font-weight: 700;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .cashier-logo {
+    margin: 15px;
+  }
+
+  .menu-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .menu-cont a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+  .menu-name {
+    margin-top: 0;
+  }
+
+  .logout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* content */
+
+  .product-cont {
+    max-width: 760px;
+    max-height: 790px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* product list */
+
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    max-height: 834px;
+    overflow-y: scroll;
+  }
+
+  /* order cart */
+  .order-cart {
+    background-color: white;
+    padding: 40px 26px;
+    gap: 10px;
+    margin-left: 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 0px;
   }
   .order-cart h1 {
     align-self: flex-start;

@@ -36,20 +36,21 @@ const Home = () => {
   setOrder(result)
   }
 
-  console.log(selectedOrder);
 
 
   const onComplete = (i) => {
     setStatus({status : 'Complete'})
-    console.log(i);
-    axios.patch('http://localhost:5000/api/order/' + i,status)
+    axios.patch('http://localhost:5000/api/order/' + selectedOrder._id,{
+      status: "Complete"
+    })
     .then((res) => {
       console.log(res)
     })
     .catch((err) => {
       console.log(err)
     })
-    // window.location.reload();
+    axios.post()
+    window.location.reload();
   }
   return (
     <>
@@ -85,7 +86,7 @@ const Home = () => {
             ))}
           </div>
         </div>
-          <div className="detail-cont">
+          {selectedOrder && <div className="detail-cont">
             <h1>Current Order</h1>
             {selectedOrder && 
             <div className='order-detail' key={selectedOrder._id}>
@@ -131,7 +132,7 @@ const Home = () => {
               <button className='complete-btn' onClick={() => onComplete(selectedOrder._id)}>Complete Transaction</button>
             </div>
             }
-          </div>
+          </div>}
       </div>
     </div>
     </>

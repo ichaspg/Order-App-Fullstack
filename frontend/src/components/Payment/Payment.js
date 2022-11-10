@@ -17,6 +17,7 @@ const Payment = () => {
   const orderType = useSelector((state) => state.order.orderType)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [pay,setPay] = useState()
   const backButton = () => {
     navigate('/checkout')
   }
@@ -35,6 +36,7 @@ const Payment = () => {
       orderType:orderType,
       status: 'Waiting for Payment'
     }))
+    setPay(val)
   }
 
   const proceedButtonClicked = () => {
@@ -85,7 +87,7 @@ const Payment = () => {
             <p>Cash Payment</p>
           </button>
         </div>
-      <button className='proceed-pay-btn' onClick={() => proceedButtonClicked()}>Proceed Payment</button>
+      {pay && <button className='proceed-pay-btn' onClick={() => proceedButtonClicked()}>Proceed Payment</button>}
     </div>
   )
 }

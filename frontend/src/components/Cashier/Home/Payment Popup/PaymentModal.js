@@ -3,11 +3,8 @@ import React from 'react'
 import './paymentmodal.css'
 
 const PaymentModal = ({order,handleCancel}) => {
-  console.log(order.uploadPayment)
-
   const approveButtonClicked = () => {
     axios.patch('http://localhost:5000/api/order/' + order._id,{
-      ...order,
       status: "Paid"
     })
     .then(res => {

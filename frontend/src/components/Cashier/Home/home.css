@@ -616,6 +616,26 @@ p {
   }
 }
 
+@media only screen and (max-width: 1366px) {
+  .detail-cont h1 {
+    margin-top: 10px;
+  }
+  .detail-cont {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 416px;
+    padding: 0px 26px;
+  }
+  .selected-order {
+    height: 200px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+}
+
 /* screenwidth less than 1024px
 --------------------------------------------------------------------- */
 @media only screen and (max-width: 1024px) {

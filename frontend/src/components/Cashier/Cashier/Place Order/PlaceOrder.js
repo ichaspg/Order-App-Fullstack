@@ -39,13 +39,15 @@ const PlaceOrder = ({cartItems,subtotal,handleCancel}) => {
                 <input 
                 type="text"
                 placeholder='Name'
+                required
                 onChange={(e) => setName(e.target.value)}
                  />
               </p>
               <p>
                 <label htmlFor="name">Table Number</label>
                 <input 
-                type="text"
+                type="number"
+                required
                 placeholder='Table Number'
                 onChange={(e) => setTableNumber(e.target.value)}
                  />

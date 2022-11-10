@@ -21,6 +21,9 @@ const EditProduct = ({product,handleCancel,reRender}) => {
    const onInputChange = (e) => {
     setFile(e.target.files[0])
   }
+  const handleChange = (event) => {
+    setProductCategory(event.target.value)
+  }
   const handleChangeImage = () => {
     const formData = new FormData()
     formData.append('image',file)
@@ -56,7 +59,7 @@ const EditProduct = ({product,handleCancel,reRender}) => {
     })
     handleCancel(false)
     reRender(1)
-    // window.location.reload();
+    window.location.reload();
   }
   return (
     <div className='popup-cont'>
@@ -80,12 +83,16 @@ const EditProduct = ({product,handleCancel,reRender}) => {
             </p>
             <p>
               <label htmlFor="category">Category</label>
-              <input 
-              type="text" 
-              placeholder='Item Name'
-              value={productCategory}
-              onChange={(e) => setProductCategory(e.target.value)} 
-              />
+              <select name="category" onChange={handleChange} value={productCategory}>
+                  <option value="Signature">Signature</option>
+                  <option value="Coffee">Coffee</option>
+                  <option value="Manual Brew">Manual Brew</option>
+                  <option value="Milk Base">Milk Base</option>
+                  <option value="Refreshment">Refreshment</option>
+                  <option value="Tea">Tea</option>
+                  <option value="Main Course">Main Course</option>
+                  <option value="Snack">Snack</option>
+                </select>
             </p>
             <p>
               <label htmlFor="price">Price</label>
