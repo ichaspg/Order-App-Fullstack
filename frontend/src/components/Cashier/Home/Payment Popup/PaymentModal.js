@@ -13,11 +13,20 @@ const PaymentModal = ({order,handleCancel}) => {
     .catch(err => {
       console.log(err)
     })
-    handleCancel(false)
+    window.location.reload();
   }
 
   const declineButtonClicked = () => {
-
+      axios.patch('http://localhost:5000/api/order/' + order._id,{
+      status: "Declined"
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    window.location.reload();
   }
   return (
     <div className="popup-cont">

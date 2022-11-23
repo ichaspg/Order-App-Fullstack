@@ -1,0 +1,35 @@
+.checkred-cont {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 26px;
+  height: 90vh;
+  position: relative;
+  max-width: 416px;
+  max-height: 834px;
+  background-color: #5a7360;
+  align-items: center;
+}
+
+.checkred-cont img {
+  width: 330px;
+}
+
+.successred-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.successred-cont button {
+  margin-top: 40px;
+  height: 41px;
+  width: 270px;
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+  background-color: white;
+  color: #5a7360;
+  font-weight: 700;
+  font-size: 16px;
+}

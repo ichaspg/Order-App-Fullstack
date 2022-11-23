@@ -14,12 +14,14 @@ const Home = () => {
   const [paymentBtn,setPaymentBtn] = useState(false);
   const [order,setOrder] = useState(data)
   const [status,setStatus] = useState()
+  const [filter,setFilter] = useState()
   useEffect(() => {
     setOrder(data)
   },[data])
   const handleClick = (i) => {
     const selected = data.find(order => order._id === i)
     setSelectedOrder(selected)
+    console.log(selectedOrder);
   }
   const deleteOrderBtn = (i) => {
     setDeleteBtn(true)
@@ -34,8 +36,17 @@ const Home = () => {
       return filteredOrder.status === categoryOrder
     });
   setOrder(result)
+  setStatus(result)
+ 
   }
-
+ console.log(status);
+ console.log(order);
+  const orderTypeCategory = (orderType) => {
+  //   const result = status.filter((filterType) => {
+  //     return filterType.orderType === orderType
+  //   })
+  // setOrder(result)
+  }
 
 
   const onComplete = (i) => {
@@ -66,7 +77,9 @@ const Home = () => {
             <button className='category-order' type='button' onClick={() => categoryFilter('Waiting for Payment')}>Waiting Payment</button>
             <button className='category-order' type='button' onClick={() => categoryFilter('Paid')}>Paid</button>
             <button className='category-order' type='button' onClick={() => categoryFilter('Complete')}>Complete</button>
+            <button className='category-order' type='button' onClick={() => categoryFilter('Declined')}>Declined</button>
           </div>
+            <button onClick={() => orderTypeCategory("Take Away")}>ngentot</button>
             <div className="order-card-list">
             {order.map((item,index) => (
               <div className="order-card" key={item._id} onClick={()=> handleClick(item._id)}>
@@ -82,6 +95,7 @@ const Home = () => {
                 {item.status === 'Checking Payment' && <p className="order-status-check">{item.status}</p>}
                 {item.status === 'Paid' && <p className="order-status-paid">{item.status}</p>}
                 {item.status === 'Complete' && <p className="order-status-complete">{item.status}</p>}
+                {item.status === 'Declined' && <p className="order-status-decline">{item.status}</p>}
               </div>
             ))}
           </div>

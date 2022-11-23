@@ -118,14 +118,13 @@ form a {
 .try-again-btn {
   margin: 5px 5px;
   padding: 8px 20px;
-  gap: 10px;
   width: 100px;
   height: 34px;
   border: none;
   border-radius: 20px;
   font-weight: 600;
   font-size: 12px;
-  line-height: 18px;
   color: #f64c4c;
   background: rgba(246, 76, 76, 0.2);
+  margin-top: 0px;
 }

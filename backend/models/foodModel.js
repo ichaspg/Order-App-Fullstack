@@ -11,7 +11,7 @@ const foodSchema = mongoose.Schema({
   },
   price:{
     type:Number,
-    require:[true,'Please add Price']
+    require:[true,'Please add Price'],
   },
   description:{
     type:String,

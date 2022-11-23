@@ -4,13 +4,18 @@ import qrisicon from '../../../assets/qris.png'
 import Popup from './Popup/Popup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { orderActions } from '../../../store/orderSlice'
 
 const QrisPayment = () => {
   const user = JSON.parse(localStorage.getItem('user'))
+  const userInfo = useSelector((state) => state.order.user)
   const [image,setImage] = useState()
   const [status,setStatus] = useState(user.status)
   const [userData,setuserData] = useState(user)
   const navigate = useNavigate()
+  const [id,setId] = useState()
+  const dispatch = useDispatch()
   const onInputChange = (e) => {
     setImage(e.target.files[0])
   }
@@ -24,14 +29,16 @@ const QrisPayment = () => {
     })
     .then(res => {
       console.log(res)
+      setId(res._id)
     })
     .catch(err => {
       console.log(err)
     })
     setStatus('Checking Payment')
     setuserData({...user,status})
+    dispatch(orderActions.userInfo({...user,status,orderID : id}))
     localStorage.setItem('user', JSON.stringify(userData))
-    navigate('/')
+    navigate('/checkredirect')
   }
 
   const [popup,setPopup] = useState(false)

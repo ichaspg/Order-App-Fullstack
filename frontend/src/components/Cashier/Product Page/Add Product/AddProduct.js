@@ -26,6 +26,7 @@ const AddProduct = ({handleCancel,reRender}) => {
     setFile(e.target.files[0])
     const image = e.target.file[0]
     setPreview(URL.createObjectURL(image))
+    
   }
   const handleSubmit = () => {
     const formData = new FormData();
@@ -49,13 +50,13 @@ const AddProduct = ({handleCancel,reRender}) => {
   return (
     <div className='popup-cont'>
       <div className="form-cont-lg">
-        <p className="add-title">Edit Product Information</p>
+        <p className="add-title">Add Product</p>
           <div className="add-form">
             <form action="">
               <div className="add-img-cont">
               {preview ? (
-                <img src={preview} alt="" className='add-prod-img' />
-                ):<img src={imageicon} alt="" className='add-prod-img' />}
+                <img src={imageicon} alt="" className='add-prod-img' />
+                ):<img src={preview} alt="" className='add-prod-img' />}
                 <input type='file' className='add-img-btn' onChange={onInputChange} required />
               </div>
               <p>

@@ -11,7 +11,6 @@ import Cart from '../Cart/Cart'
 const FoodListSmall = () => {
     //====================Fetch Data dari API==============================
     const {data:foods,isPending,error} = useFetch('http://localhost:5000/api/foods')
-    console.log(foods)
     const [data, setData] = useState(foods)
     useEffect(()=>{
         setData(foods)
@@ -59,8 +58,9 @@ const FoodListSmall = () => {
                 image:data[i].image
             })
         )
+        setCounter(itemsList[i].quantity)
     } 
-
+    const [counter,setCounter] = useState()
     return (
         <>
         <div className='food-list'>
@@ -119,7 +119,7 @@ const FoodListSmall = () => {
                 </motion.div>
         </motion.div>              
         </div>
-            {data.map((value,index)=>(
+            {dataSearch.map((value,index)=>(
             <div className="food-item" key={value._id} >
             <Link  to={`/foods/${value._id}`}>
             <img src={`http://localhost:5000/${value.image}`} alt="" className='food-img'/>
@@ -129,7 +129,8 @@ const FoodListSmall = () => {
                 <p className="food-desc">{value.description}</p>
                 <div className="price-cont">
                     <p className='food-price'>{`Rp.${value.price}`}</p>
-                    {itemsList && value.status === "Available" && <button className='add-btn-sm' onClick={() => addToCart(index)} >Add Item</button>}
+                    {/* {counter && itemsList[index].quantity > 1 && <button>ADDDDDD</button>} */}
+                    {value.status === "Available" && <button className='add-btn-sm' onClick={() => addToCart(index)} >Add Item</button>}
                     {value.status === "Out" && <p className='out-desc'>Out of Stock</p>}
                 </div>
             </div>

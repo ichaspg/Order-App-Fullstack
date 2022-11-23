@@ -78,10 +78,23 @@ const deleteOrder = asyncHandler (async (req,res) => {
   res.status(200).json({id: req.params.id})
 })
 
+//@desc Get Order by ID
+//@route GET /api/order/id
+//@access Private
+const getOrderByID = asyncHandler(async(req,res) => {
+  const order = await Order.findById(req.params.id)
+  if (!order) {
+    res.status(200)
+    throw new Error('Order not Found')
+  }
+  res.status(200).json(order)
+})
+
 module.exports ={
   getOrders,
   setOrder,
   deleteOrder,
   uploadPayment,
   editOrder,
+  getOrderByID,
 }
