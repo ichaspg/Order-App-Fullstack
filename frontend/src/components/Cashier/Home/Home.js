@@ -14,7 +14,6 @@ const Home = () => {
   const [paymentBtn,setPaymentBtn] = useState(false);
   const [order,setOrder] = useState(data)
   const [status,setStatus] = useState()
-  const [filter,setFilter] = useState()
   useEffect(() => {
     setOrder(data)
   },[data])
@@ -36,17 +35,23 @@ const Home = () => {
       return filteredOrder.status === categoryOrder
     });
   setOrder(result)
-  setStatus(result)
- 
   }
- console.log(status);
- console.log(order);
+
   const orderTypeCategory = (orderType) => {
-  //   const result = status.filter((filterType) => {
-  //     return filterType.orderType === orderType
-  //   })
-  // setOrder(result)
+    const result = order.filter((filterType) => {
+      return filterType.orderType === orderType
+    })
+  setOrder(result)
   }
+   //======================Searchbar===========================================
+  const [filter,setFilter] = useState('')
+  const searchText = (e) => {
+    setFilter(e.target.value)
+  }
+  let dataSearch = order.filter(item => {
+    return Object.keys(item).some(key => 
+      item[key].toString().toLowerCase().includes(filter.toString().toLowerCase()))
+  })
 
 
   const onComplete = (i) => {
@@ -71,7 +76,17 @@ const Home = () => {
       {deleteBtn && <DeleteModal order={selectedOrder} handleCancel={value => setDeleteBtn(value)} />}
       <div className="home-cont">
           <div className="order-list-admin">
+          <div className="order-list-header">
           <h1 className='home-ttl'>Order List</h1>
+          <div className="search-bar-order">
+            <input 
+            type="text" 
+            value={filter}
+            placeholder='Search Order'
+            onChange={searchText.bind(this)}
+             />
+          </div>
+          </div>
           <div className="category-order-cont">
             <button className='category-order' type='button' onClick={() => setOrder(data)}>All Order</button>
             <button className='category-order' type='button' onClick={() => categoryFilter('Waiting for Payment')}>Waiting Payment</button>
@@ -79,9 +94,10 @@ const Home = () => {
             <button className='category-order' type='button' onClick={() => categoryFilter('Complete')}>Complete</button>
             <button className='category-order' type='button' onClick={() => categoryFilter('Declined')}>Declined</button>
           </div>
-            <button onClick={() => orderTypeCategory("Take Away")}>ngentot</button>
+          {/* <button onClick={() => orderTypeCategory("Dine In")}>Dine In</button>
+          <button onClick={() => orderTypeCategory("Take Away")}>Take Away</button> */}
             <div className="order-card-list">
-            {order.map((item,index) => (
+            {dataSearch.map((item,index) => (
               <div className="order-card" key={item._id} onClick={()=> handleClick(item._id)}>
               <div className="table-type">
                 <p className="order-table">Table {item.tablenumber}</p>
@@ -96,6 +112,7 @@ const Home = () => {
                 {item.status === 'Paid' && <p className="order-status-paid">{item.status}</p>}
                 {item.status === 'Complete' && <p className="order-status-complete">{item.status}</p>}
                 {item.status === 'Declined' && <p className="order-status-decline">{item.status}</p>}
+                
               </div>
             ))}
           </div>

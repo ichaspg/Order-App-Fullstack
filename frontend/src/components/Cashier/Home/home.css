@@ -572,6 +572,22 @@ p {
   border: none;
 }
 
+.order-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.order-list-header input {
+  padding: 10px 20px;
+  gap: 16px;
+  width: 456px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  margin-right: 20px;
+}
 /* screenwidth less than 2048px
 --------------------------------------------------------------------- */
 @media only screen and (max-width: 2048px) {

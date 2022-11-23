@@ -16,6 +16,7 @@ const QrisPayment = () => {
   const navigate = useNavigate()
   const [id,setId] = useState()
   const dispatch = useDispatch()
+   console.log(userInfo);
   const onInputChange = (e) => {
     setImage(e.target.files[0])
   }
@@ -55,7 +56,7 @@ const QrisPayment = () => {
       </div>
       <div className="paymentdetail-amount">
         <p className="total-payment-ttl">Total Pembayaran</p>
-        <p className="total-payment-amount">Rp.{user.total}</p>
+        <p className="total-payment-amount">Rp.{userInfo.order.totalAllPrice}</p>
         <p className="payment-instruction">Bayar pesanan sesuai jumlah diatas </p>
         <p className="payment-desc">Segera  lakukan pembayaran anda setelah melakukan checkout.Jika dalam waktu 15 menit bukti transfer belum diunggah, maka order dianggap batal dan anda akan dikembalikan ke menu utama</p>
       </div>

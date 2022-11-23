@@ -1,18 +1,23 @@
 import axios from 'axios'
 import React, { useState,useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import './checkredirect.css'
 import waitimage from '../../assets/wait.svg'
 import declineimage from '../../assets/decline.svg'
 import successimage from '../../assets/success.svg'
+import { cartActions } from '../../store/cartSlice'
+
 
 const CheckRedirect = () => {
   const user = useSelector((state) => state.order.user)
   const navigate = useNavigate()
   const [status,setStatus] = useState()
+  const dispatch = useDispatch()
 
   const orderAgainButtonClicked = () => {
+    dispatch(cartActions.clearCart())
+    localStorage.clear();
     navigate('/')
   }
   useEffect(() => {
@@ -30,13 +35,7 @@ const CheckRedirect = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-  // if (status === "Waiting for Payment") {
-  //   setStatus("Waiting for Payment")
-  // }if (status === "Paid") {
-  //   setStatus("Paid")
-  // }if (status === 'Declined') {
-  //   setStatus('Declined')
-  // }
+
   return (
     <div className='checkred-cont'>
       {status === "Waiting for Payment" && <img src={waitimage}></img>}

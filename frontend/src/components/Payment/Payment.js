@@ -18,6 +18,8 @@ const Payment = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [pay,setPay] = useState()
+  const [id,setId] = useState()
+  console.log(userInfo);
   const backButton = () => {
     navigate('/checkout')
   }
@@ -52,8 +54,10 @@ const Payment = () => {
       orderType: userInfo.orderType,
       paymentPic:'Picture',
     }).then((response) => {
-      console.log(response.status)
-      console.log(response.data)
+      dispatch(orderActions.userInfo({
+        ...userInfo,
+        orderID : response.data._id
+      }))
       localStorage.setItem('user', JSON.stringify(response.data))
     })
 
