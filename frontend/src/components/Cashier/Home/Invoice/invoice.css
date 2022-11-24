@@ -1,0 +1,24 @@
+.invoice-body {
+  width: 58mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+.invoice-body p {
+  font-size: 14px;
+}
+
+.address {
+  text-align: center;
+}
+
+.bill-logo {
+  width: 30px;
+  margin: 10px;
+}
+
+.bill-header {
+  display: flex;
+}

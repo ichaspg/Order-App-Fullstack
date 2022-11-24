@@ -17,6 +17,8 @@ import LockRoute from './components/features/Lock Route/LockRoute';
 import AuthRoute from './components/features/Lock Route/AuthRoute';
 import RedirectLogin from './components/Cashier/Login/RedirectLogin';
 import CheckRedirect from './components/Redirect/CheckRedirect';
+import Invoice from './components/Cashier/Home/Invoice/Invoice';
+
 
 
 function App() {
@@ -42,7 +44,9 @@ function App() {
       <Route path='/redirect' element={<Redirect/>}/>
       <Route path='/redirectadmin' element={<RedirectLogin/>}/>
       <Route path='/checkredirect' element={<CheckRedirect/>}/>
+      <Route path='/invoice' element={<Invoice/>} />
     </Routes>
+    
   );
 }
 

@@ -1,11 +1,15 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { orderActions } from '../../../store/orderSlice'
 import useFetch from '../../../useFetch'
 import Sidebar from '../Sidebar/Sidebar'
 import DeleteModal from './Delete Popup/DeleteModal'
 import './home.css'
+import Invoice from './Invoice/Invoice'
 import PaymentModal from './Payment Popup/PaymentModal'
+
 
 const Home = () => {
   const {data,isLoading,error} = useFetch('http://localhost:5000/api/order')
@@ -14,13 +18,15 @@ const Home = () => {
   const [paymentBtn,setPaymentBtn] = useState(false);
   const [order,setOrder] = useState(data)
   const [status,setStatus] = useState()
+  const dispatch = useDispatch()
+  const flag = true
   useEffect(() => {
     setOrder(data)
   },[data])
   const handleClick = (i) => {
     const selected = data.find(order => order._id === i)
     setSelectedOrder(selected)
-    console.log(selectedOrder);
+    
   }
   const deleteOrderBtn = (i) => {
     setDeleteBtn(true)
@@ -65,13 +71,15 @@ const Home = () => {
     .catch((err) => {
       console.log(err)
     })
-    axios.post()
+    dispatch(orderActions.userInfo(selectedOrder))
+    window.open('/invoice','_blank')
     window.location.reload();
   }
   return (
     <>
     <div className="cashier-cont2">
       <Sidebar/>
+      {!flag && <Invoice order={selectedOrder}/>}
       {paymentBtn && <PaymentModal order={selectedOrder} handleCancel={value => setPaymentBtn(value)} />}
       {deleteBtn && <DeleteModal order={selectedOrder} handleCancel={value => setDeleteBtn(value)} />}
       <div className="home-cont">
@@ -106,6 +114,8 @@ const Home = () => {
                 <div className="order-detail-sm">
                   <p className="order-receiver">Recepient : {item.userName}</p>
                   <p className="order-id">Order ID : {item._id}</p>
+                  <p className="order-id">Order ID : {item.createdAt}</p>
+
                 </div>
                 {item.status === 'Waiting for Payment' && <p className="order-status-wait">{item.status}</p>}
                 {item.status === 'Checking Payment' && <p className="order-status-check">{item.status}</p>}

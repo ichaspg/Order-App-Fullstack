@@ -666,6 +666,14 @@ p {
     overflow: hidden;
     overflow-y: scroll;
   }
+  .category-order-cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    max-width: 700px;
+  }
 }
 
 /* screenwidth less than 1024px
