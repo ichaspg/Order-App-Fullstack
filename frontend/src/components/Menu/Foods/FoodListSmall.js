@@ -65,13 +65,13 @@ const FoodListSmall = () => {
         <>
         <div className='food-list'>
         <div className="search-cont">
-            <input 
+            {/* <input 
                 type="text" 
                 className='search-bar'
                 value={filter}
                 placeholder='What Would You Like ?'
                 onChange={searchText.bind(this)}
-                />
+                /> */}
         </div>
         {/* <Carousel /> */}
         <div className="category-btn-cont">
@@ -119,11 +119,11 @@ const FoodListSmall = () => {
                 </motion.div>
         </motion.div>              
         </div>
+         <div className="food-list-cont">
             {dataSearch.map((value,index)=>(
+           
             <div className="food-item" key={value._id} >
-            <Link  to={`/foods/${value._id}`}>
             <img src={`http://localhost:5000/${value.image}`} alt="" className='food-img'/>
-            </Link>
             <div className="food-info">
                 <p className="food-name">{value.name}</p>
                 <p className="food-desc">{value.description}</p>
@@ -131,11 +131,13 @@ const FoodListSmall = () => {
                     <p className='food-price'>{`Rp.${value.price}`}</p>
                     {/* {counter && itemsList[index].quantity > 1 && <button>ADDDDDD</button>} */}
                     {value.status === "Available" && <button className='add-btn-sm' onClick={() => addToCart(index)} >Add Item</button>}
-                    {value.status === "Out" && <p className='out-desc'>Out of Stock</p>}
+                    {value.status === "Out" && <p className='out-desc-sm'>Out of Stock</p>}
                 </div>
             </div>
             </div>
+            
         ))}
+        </div>
         </div>
         {total && <Cart total={total}/>} 
     </>

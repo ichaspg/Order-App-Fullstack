@@ -159,13 +159,13 @@ const Cashier = () => {
               </motion.div>
             </div>
             <div className="searchbar-cashier">
-              <input 
+              {/* <input 
                 type="text" 
                 className='search-bar'
                 value={filter}
                 placeholder='Search Product'
                 onChange={searchText.bind(this)}
-                />
+                /> */}
             </div>
             <div className="product-list">
               {dataSearch.map((item,index) => (

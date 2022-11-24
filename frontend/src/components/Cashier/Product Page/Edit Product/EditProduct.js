@@ -59,7 +59,7 @@ const EditProduct = ({product,handleCancel,reRender}) => {
     })
     handleCancel(false)
     reRender(1)
-    // window.location.reload();
+    window.location.reload();
   }
   return (
     <div className='popup-cont'>

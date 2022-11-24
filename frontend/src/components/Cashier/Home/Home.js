@@ -170,7 +170,7 @@ const Home = () => {
                   <p>Rp.{selectedOrder.total}</p>
                 </div>
               </div>
-              <button className='complete-btn' onClick={() => onComplete(selectedOrder._id)}>Complete Transaction</button>
+              {selectedOrder.status === 'Paid' && <button className='complete-btn' onClick={() => onComplete(selectedOrder._id)}>Complete Transaction</button>}
             </div>
             }
           </div>}

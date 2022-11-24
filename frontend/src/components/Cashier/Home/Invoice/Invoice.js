@@ -8,6 +8,7 @@ import './invoice.css'
 const Invoice = () => {
   const info = useSelector((state) => state.order.user)
   const [order,setOrder] = useState(info)
+  window.print()
   return (
     <div className='invoice-body'>
       <div className="bill-header">
