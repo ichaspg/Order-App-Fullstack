@@ -4,9 +4,11 @@ import './checkmenuredirect.css'
 const CheckMenuRedirect = ({order,checkButtonClicked}) => {
   return (
     <div className='checkmenu-cont'>
-      <div className="checkmenu-header">Your Order</div>
+      <div className="checkmenu-header">
+        <h1>Your Order</h1>
+      </div>
       {order.order.item.map((item) => (
-        <div className="order-list" key={item._id}>
+        <div className="order-list-x" key={item._id}>
           <div className="order-desc">
             <img src={`http://localhost:5000/${item.image}`} alt="" className='order-pic'/>
           <div className="order-detail">
@@ -26,7 +28,7 @@ const CheckMenuRedirect = ({order,checkButtonClicked}) => {
             <p className="tax-price">Rp.{order.subtotal * 0.1}</p>
           </div>
         </div>
-        <button onClick={() => checkButtonClicked(false)}>Back</button>
+        <button onClick={() => checkButtonClicked(false)} className='back'>Back</button>
     </div>
   )
 }

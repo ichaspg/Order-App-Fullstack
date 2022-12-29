@@ -84,6 +84,13 @@ const Product = () => {
              />
           </div>
         </div>
+        <div className="category-lookup">
+          {dataSearch.map((item) => (
+             <button className='category-btn-big' onClick={() => categoryFilter(item.category)}>
+              <img src={signatureicon} alt="" /> {item.category}
+            </button>
+          ))}
+        </div>
         <div className="product-page-category-cont">
           <div className="category-item">
             <button className='category-btn-big' onClick={() => setData(foods)}>

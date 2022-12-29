@@ -7,6 +7,7 @@ import './invoice.css'
 
 const Invoice = () => {
   const info = useSelector((state) => state.order.user)
+  const discount = useSelector((state) => state.order.discount)
   const [order,setOrder] = useState(info)
   // window.print()
   return (
@@ -32,7 +33,9 @@ const Invoice = () => {
             </div>
           ))}
           <p>Tax : Rp.{order.subtotal * 0.1}</p>
-          <p>Total : Rp.{order.total + (order.subtotal * 0.1)}</p>
+          {discount > 0 && <p>Discount ({discount}%) : Rp.{(order.total * (discount * 0.01))}  </p>}
+          {discount == 0 && <p>Total : Rp.{order.total + (order.subtotal * 0.1)}</p>}
+          {discount > 0 && <p>Total : Rp.{order.total + (order.subtotal * 0.1) - (order.total * (discount * 0.01))}</p>}
           <p>----------------------------</p>
           <p>Thanks For Ordering</p>
           <p>&#169;KONA GELATO</p>

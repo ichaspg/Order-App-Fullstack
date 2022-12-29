@@ -103,6 +103,11 @@ const Cashier = () => {
       <div className="cashier-cont">
         <div className="product-cont">
           <h1>Choose Category</h1>
+          {dataSearch.map((item) => (
+             <button className='category-btn-big' onClick={() => categoryFilter(item.category)}>
+              <img src={signatureicon} alt="" /> {item.category}
+            </button>
+          ))} 
             <div className="category-cont-cashier">
               <motion.div ref={categorySlider} className='category-slider'>
                 <motion.div 
@@ -167,6 +172,7 @@ const Cashier = () => {
                 onChange={searchText.bind(this)}
                 /> */}
             </div>
+
             <div className="product-list">
               {dataSearch.map((item,index) => (
                 <div className="product-item" key={item._id}>

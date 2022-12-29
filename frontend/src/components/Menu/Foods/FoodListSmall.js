@@ -65,15 +65,22 @@ const FoodListSmall = () => {
         <>
         <div className='food-list'>
         <div className="search-cont">
-            {/* <input 
+            <input 
                 type="text" 
                 className='search-bar'
                 value={filter}
                 placeholder='What Would You Like ?'
                 onChange={searchText.bind(this)}
-                /> */}
+                />
         </div>
         {/* <Carousel /> */}
+        <div className="category-lookup">
+            {dataSearch.map((food) => (    
+            <motion.div className='cat-item'>
+                <button className='category-btn' onClick={()=> filterResult(food.category)}>{food.category}</button>
+            </motion.div>
+            ))}
+        </div>
         <div className="category-btn-cont">
         <motion.div ref={catCarousel} className='category-carousel'>
             <motion.div 
@@ -84,7 +91,6 @@ const FoodListSmall = () => {
                     <motion.div className='cat-item'>
                         <button className='category-btn' onClick={()=> setData(foods)}>All</button>
                     </motion.div>
-
                     <motion.div className='cat-item'>
                         <button className='category-btn' onClick={()=> filterResult('Signature')}>Signature</button>
                     </motion.div>

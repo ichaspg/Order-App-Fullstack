@@ -12,6 +12,9 @@
   max-width: 360px;
 }
 
+.category-lookup {
+  display: none;
+}
 .cat-item {
   margin: 3px;
 }

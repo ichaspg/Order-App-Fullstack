@@ -35,7 +35,7 @@ const PaymentModal = ({order,handleCancel}) => {
         <img src={`http://localhost:5000/${order.paymentPic}`} alt="" className='payment-img' />
         <div className="check-payment-btn-cont">
           <button className='approve-btn' onClick={() => approveButtonClicked()}>Approve</button>
-          <button className='decline-btn' onClick={() => declineButtonClicked()}>Decline</button>
+          { <button className='decline-btn' onClick={() => declineButtonClicked()}>Decline</button>}
         </div>  
       </div>
     </div>

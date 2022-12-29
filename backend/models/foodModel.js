@@ -23,6 +23,9 @@ const foodSchema = mongoose.Schema({
   },
   image:{
     type:String,
+  },
+  discount:{
+    type:Number,
   }
 },{timestamps: true})
 

@@ -18,6 +18,9 @@ const Home = () => {
   const [paymentBtn,setPaymentBtn] = useState(false);
   const [order,setOrder] = useState(data)
   const [status,setStatus] = useState()
+  const [discount,setDiscount] = useState(0)
+  const min = 0
+  const max = 100
   const dispatch = useDispatch()
   const flag = true
   useEffect(() => {
@@ -58,6 +61,10 @@ const Home = () => {
     return Object.keys(item).some(key => 
       item[key].toString().toLowerCase().includes(filter.toString().toLowerCase()))
   })
+  const handleChange = (event) => {
+     const value = Math.max(min, Math.min(max, Number(event.target.value)));
+    setDiscount(value);
+  }
 
 
   const onComplete = (i) => {
@@ -72,6 +79,7 @@ const Home = () => {
       console.log(err)
     })
     dispatch(orderActions.userInfo(selectedOrder))
+    dispatch(orderActions.addDiscount(discount))
     window.open('/invoice','_blank')
     window.location.reload();
   }
@@ -80,7 +88,7 @@ const Home = () => {
     <div className="cashier-cont2">
       <Sidebar/>
       {!flag && <Invoice order={selectedOrder}/>}
-      {paymentBtn && <PaymentModal order={selectedOrder} handleCancel={value => setPaymentBtn(value)} />}
+      {paymentBtn && <PaymentModal order={selectedOrder} handleCancel={value => setPaymentBtn(value)}  />}
       {deleteBtn && <DeleteModal order={selectedOrder} handleCancel={value => setDeleteBtn(value)} />}
       <div className="home-cont">
           <div className="order-list-admin">
@@ -114,7 +122,6 @@ const Home = () => {
                 <div className="order-detail-sm">
                   <p className="order-receiver">Recepient : {item.userName}</p>
                   <p className="order-id">Order ID : {item._id}</p>
-                  <p className="order-id">Order ID : {item.createdAt}</p>
 
                 </div>
                 {item.status === 'Waiting for Payment' && <p className="order-status-wait">{item.status}</p>}
@@ -152,8 +159,11 @@ const Home = () => {
                   </div>
                 ))}
               </div>
+              <div className="dicount-cont">
+              <input type="number" id='discount' max='100' onChange={handleChange}/> % 
+              </div>
               <div className="current-btn-cont">
-              <button className='check-btn' onClick={()=> checkPaymentBtn(selectedOrder._id)}>Check Payment</button>
+              {<button className='check-btn' onClick={()=> checkPaymentBtn(selectedOrder._id)}>Check Payment</button>}
               <button className='delete-order-btn' onClick={() => deleteOrderBtn(selectedOrder._id)}>Delete Order</button>
               </div>
               <div className="price-detail-cashier">
@@ -165,9 +175,13 @@ const Home = () => {
                   <p>Tax (10%)</p>
                   <p>Rp.{selectedOrder.subtotal * 0.1}</p>
                 </div>
+                <div className="tax-detail">
+                  <p>Discount {discount}% : </p>
+                  <p>Rp.{selectedOrder.total * (discount * 0.01)}</p>
+                </div>
                 <div className="total-detail">
                   <p>Total</p>
-                  <p>Rp.{selectedOrder.total}</p>
+                  <p>Rp.{selectedOrder.total - (selectedOrder.total * (discount * 0.01))}</p>
                 </div>
               </div>
               {selectedOrder.status === 'Paid' && <button className='complete-btn' onClick={() => onComplete(selectedOrder._id)}>Complete Transaction</button>}

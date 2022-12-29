@@ -9,6 +9,7 @@ const EditProduct = ({product,handleCancel,reRender}) => {
   const [productPrice,setProductPrice] = useState(product.price)
   const [productDesc,setProductDesc] = useState(product.description)
   const [status,setStatus] = useState(product.status)
+  const [discount,setDiscount] = useState();
 
   const image =  product.image
   // URL.createObjectURL(image)
@@ -39,6 +40,9 @@ const EditProduct = ({product,handleCancel,reRender}) => {
       console.log(err)
     })
   }
+  // if (discount > 0) {
+  //   setProductPrice(productPrice + (productPrice * discount/100))
+  // }
   const handleSubmit = () => {
     const formData = new FormData();
     formData.append('name',productName)
@@ -110,6 +114,16 @@ const EditProduct = ({product,handleCancel,reRender}) => {
               placeholder='Item Name'
               value={productDesc}
               onChange={(e) => setProductDesc(e.target.value)}
+               />
+            </p>
+            <p>
+              <label htmlFor="discount">Discount</label>
+              <input 
+              type="text" 
+              placeholder='Add Discount'
+              value= {discount}
+              className="discount-form"
+              onChange={(e) => setDiscount(e.target.value)}
                />
             </p>
             <p>

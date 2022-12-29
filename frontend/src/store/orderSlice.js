@@ -9,7 +9,8 @@ const orderSlice = createSlice({
     checkOut: true,
     changed:false,
     orderDetail:[],
-    user:[]
+    user:[],
+    discount:'',
   },
   reducers:{
     addpaymentMethod(state,action){
@@ -34,6 +35,9 @@ const orderSlice = createSlice({
     },
     orderInfo(state,action){
       state.orderDetail = action.payload
+    },
+    addDiscount(state,action){
+      state.discount = action.payload
     }
   }
 })
