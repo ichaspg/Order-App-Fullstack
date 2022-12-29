@@ -9,39 +9,43 @@ import CashPopup from './Popup/CashPopup'
 const CashPayment = () => {
   const user = JSON.parse(localStorage.getItem('user'))
   const userInfo = useSelector((state) => state.order.user)
-  const [status,setStatus] = useState()
+  const [status, setStatus] = useState()
   const navigate = useNavigate()
   useEffect(() => {
 
     const interval = setInterval(() => {
-        // Poll the server for new data.
-       axios.get('http://localhost:5000/api/order/' + user._id)
-       .then((res) => {
+      // Poll the server for new data.
+      axios.get('http://localhost:5000/api/order/' + user._id)
+        .then((res) => {
           console.log(res);
           setStatus(res.data.status)
-       })
-       .catch((err) => {
-        console.log(err);
-       })
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-  
+  const formatRupiah = (money) => {
+    return new Intl.NumberFormat('id-ID',
+      { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
+    ).format(money);
+  }
   return (
     <>
-    <div className='paymentdetail-cont'>
-      {status ==="Paid" && <CashPopup/>}
-      <div className="payment-header">
-        <img src={cashicon} alt="" className='payment-header-img-cash' />
-        <p className="payment-header-ttl">Cash Payment</p>
+      <div className='paymentdetail-cont'>
+        {status === "Paid" && <CashPopup />}
+        <div className="payment-header">
+          <img src={cashicon} alt="" className='payment-header-img-cash' />
+          <p className="payment-header-ttl">Cash Payment</p>
+        </div>
+        <div className="paymentdetail-amount">
+          <p className="total-payment-ttl">Total Pembayaran</p>
+          <p className="total-payment-amount">{formatRupiah(userInfo.order.totalAllPrice)}</p>
+          <p className="payment-instruction">Bayar pesanan sesuai jumlah diatas </p>
+          <p className="payment-desc">Segera  lakukan pembayaran anda dikasir setelah melakukan checkout.</p>
+        </div>
       </div>
-      <div className="paymentdetail-amount">
-        <p className="total-payment-ttl">Total Pembayaran</p>
-        <p className="total-payment-amount">Rp.{userInfo.order.totalAllPrice}</p>
-        <p className="payment-instruction">Bayar pesanan sesuai jumlah diatas </p>
-        <p className="payment-desc">Segera  lakukan pembayaran anda dikasir setelah melakukan checkout.</p>
-      </div>
-    </div>
     </>
   )
 }

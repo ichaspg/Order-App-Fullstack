@@ -8,13 +8,18 @@ import './invoice.css'
 const Invoice = () => {
   const info = useSelector((state) => state.order.user)
   const discount = useSelector((state) => state.order.discount)
-  const [order,setOrder] = useState(info)
+  const [order, setOrder] = useState(info)
+  const formatRupiah = (money) => {
+    return new Intl.NumberFormat('id-ID',
+      { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
+    ).format(money);
+  }
   // window.print()
   return (
     <div className='invoice-body'>
       <div className="bill-header">
-      <img src={logo} className='bill-logo' />
-      <h4>KONA GELATO</h4>
+        <img src={logo} className='bill-logo' />
+        <h4>KONA GELATO</h4>
       </div>
       <p className='address'>Jl. Citeureup No.145, Citeureup, Kec. Cimahi Utara, Kota Cimahi, Jawa Barat 40512</p>
       <div className="bill-content">
@@ -29,13 +34,13 @@ const Invoice = () => {
           {order.order.item.map((item) => (
             <div className="bill-item" key={item._id}>
               <p>{item.name} <span>x{item.quantity}</span></p>
-              <p>Rp.{item.totalPrice}</p>
+              <p>{formatRupiah(item.totalPrice)}</p>
             </div>
           ))}
-          <p>Tax : Rp.{order.subtotal * 0.1}</p>
-          {discount > 0 && <p>Discount ({discount}%) : Rp.{(order.total * (discount * 0.01))}  </p>}
-          {discount == 0 && <p>Total : Rp.{order.total + (order.subtotal * 0.1)}</p>}
-          {discount > 0 && <p>Total : Rp.{order.total + (order.subtotal * 0.1) - (order.total * (discount * 0.01))}</p>}
+          <p>Tax : {formatRupiah(order.subtotal * 0.1)}</p>
+          {discount > 0 && <p>Discount ({discount}%) : {formatRupiah(order.total * (discount * 0.01))}  </p>}
+          {discount == 0 && <p>Total : {formatRupiah(order.total + (order.subtotal * 0.1))}</p>}
+          {discount > 0 && <p>Total : Rp.{formatRupiah(order.total + (order.subtotal * 0.1) - (order.total * (discount * 0.01)))}</p>}
           <p>----------------------------</p>
           <p>Thanks For Ordering</p>
           <p>&#169;KONA GELATO</p>

@@ -18,147 +18,153 @@ import axios from 'axios'
 
 const Product = () => {
   //================Fetch Data dari Database=================================
-  const {data:foods,isLoading,error} =useFetch('http://localhost:5000/api/foods')
+  const { data: foods, isLoading, error } = useFetch('http://localhost:5000/api/foods')
   const getData = async () => {
-   const {data:foodsUpdate} = await axios.get('http://localhost:5000/api/foods')
-   setData(foodsUpdate)
+    const { data: foodsUpdate } = await axios.get('http://localhost:5000/api/foods')
+    setData(foodsUpdate)
   }
-  const [data,setData] = useState(foods)
-  const [counter,setCounter] = useState(1)
-  useEffect(()=>{
+  const [data, setData] = useState(foods)
+  const [counter, setCounter] = useState(1)
+  useEffect(() => {
     getData()
     console.log('reRender')
-  },[foods,counter])
+  }, [foods, counter])
   //======================Category FIlter======================================
   const categoryFilter = (categoryItem) => {
     const result = foods.filter((filteredFoods) => {
       return filteredFoods.category === categoryItem
     })
-  setData(result)
+    setData(result)
   }
   //======================Searchbar===========================================
-  const [filter,setFilter] = useState('')
+  const [filter, setFilter] = useState('')
   const searchText = (e) => {
     setFilter(e.target.value)
   }
   let dataSearch = data.filter(item => {
-    return Object.keys(item).some(key => 
+    return Object.keys(item).some(key =>
       item[key].toString().toLowerCase().includes(filter.toString().toLowerCase()))
   })
   //==========================Add Menu==========================================
-  const [addMenu,setAddMenu] = useState(false)
+  const [addMenu, setAddMenu] = useState(false)
   const addMenuClicked = () => {
     setAddMenu(true)
   }
   //========================Delete Menu========================================
-  const [deleteMenu,setDeleteMenu] = useState(false)
+  const [deleteMenu, setDeleteMenu] = useState(false)
   const deleteMenuClicked = (i) => {
     setDeleteMenu(true)
     const selectedItem = foods.find(food => food._id === i)
     setSelectedProduct(selectedItem)
   }
   //===========================Edit Menu=======================================
-  const [editMenu,setEditMenu] = useState(false)
-  const [selecetedProduct,setSelectedProduct] = useState()
+  const [editMenu, setEditMenu] = useState(false)
+  const [selecetedProduct, setSelectedProduct] = useState()
   const editMenuClicked = (i) => {
     setEditMenu(true)
     const selectedItem = foods.find(food => food._id === i)
     setSelectedProduct(selectedItem)
   }
+
+  const formatRupiah = (money) => {
+    return new Intl.NumberFormat('id-ID',
+      { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
+    ).format(money);
+  }
   return (
     <>
-    <div className="cashier-cont">
-      {deleteMenu && <DeleteProduct product={selecetedProduct} handleCancel={value => setDeleteMenu(value)}/>}
-      {addMenu && <AddProduct handleCancel={value => setAddMenu(value)} reRender = {value => setCounter(value + counter)}/>}
-      {editMenu && <EditProduct product={selecetedProduct} handleCancel={value => setEditMenu(value)} reRender = {value => setCounter(value + counter)}/>}
-      <Sidebar/>
-      <div className="product-page-cont">
-        <div className="product-page-header">
-          <h1>Product List</h1>
-          <div className="search-bar-product">
-            <input 
-            type="text" 
-            value={filter}
-            placeholder='Search Product'
-            onChange={searchText.bind(this)}
-             />
+      <div className="cashier-cont">
+        {deleteMenu && <DeleteProduct product={selecetedProduct} handleCancel={value => setDeleteMenu(value)} />}
+        {addMenu && <AddProduct handleCancel={value => setAddMenu(value)} reRender={value => setCounter(value + counter)} />}
+        {editMenu && <EditProduct product={selecetedProduct} handleCancel={value => setEditMenu(value)} reRender={value => setCounter(value + counter)} />}
+        <Sidebar />
+        <div className="product-page-cont">
+          <div className="product-page-header">
+            <h1>Product List</h1>
+            <div className="search-bar-product">
+              <input
+                type="text"
+                value={filter}
+                placeholder='Search Product'
+                onChange={searchText.bind(this)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="category-lookup">
-          {dataSearch.map((item) => (
-             <button className='category-btn-big' onClick={() => categoryFilter(item.category)}>
-              <img src={signatureicon} alt="" /> {item.category}
-            </button>
-          ))}
-        </div>
-        <div className="product-page-category-cont">
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => setData(foods)}>
-              <img src={allicon} alt="" /> All
-            </button>
+          <div className="category-lookup">
+            {dataSearch.map((item) => (
+              <button className='category-btn-big' onClick={() => categoryFilter(item.category)}>
+                <img src={signatureicon} alt="" /> {item.category}
+              </button>
+            ))}
           </div>
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => categoryFilter('Signature')}>
-              <img src={signatureicon} alt="" /> Signature
-            </button>
+          <div className="product-page-category-cont">
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => setData(foods)}>
+                <img src={allicon} alt="" /> All
+              </button>
+            </div>
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => categoryFilter('Signature')}>
+                <img src={signatureicon} alt="" /> Signature
+              </button>
+            </div>
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => categoryFilter('Coffee')}>
+                <img src={coffeeicon} alt="" /> Coffee
+              </button>
+            </div>
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => categoryFilter('Manual Brew')}>
+                <img src={brewicon} alt="" /> Manual Brew
+              </button>
+            </div>
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => categoryFilter('Milk Base')}>
+                <img src={milkicon} alt="" /> Milkbase
+              </button>
+            </div>
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => categoryFilter('Refreshment')}>
+                <img src={refreshicon} alt="" /> Refreshment
+              </button>
+            </div>
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => categoryFilter('Tea')}>
+                <img src={teaicon} alt="" /> Tea
+              </button>
+            </div>
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => categoryFilter('Main Course')}>
+                <img src={courseicon} alt="" /> Main Course
+              </button>
+            </div>
+            <div className="category-item">
+              <button className='category-btn-big' onClick={() => categoryFilter('Snack')}>
+                <img src={snackicon} alt="" /> Snacks
+              </button>
+            </div>
           </div>
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => categoryFilter('Coffee')}>
-              <img src={coffeeicon} alt="" /> Coffee
-            </button>
-          </div>
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => categoryFilter('Manual Brew')}>
-              <img src={brewicon} alt="" /> Manual Brew
-            </button>
-          </div>
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => categoryFilter('Milk Base')}>
-              <img src={milkicon} alt="" /> Milkbase
-            </button>
-          </div>
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => categoryFilter('Refreshment')}>
-              <img src={refreshicon} alt="" /> Refreshment
-            </button>
-          </div>
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => categoryFilter('Tea')}>
-              <img src={teaicon} alt="" /> Tea
-            </button>
-          </div>
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => categoryFilter('Main Course')}>
-              <img src={courseicon} alt="" /> Main Course
-            </button>
-          </div>
-          <div className="category-item">
-            <button className='category-btn-big' onClick={() => categoryFilter('Snack')}>
-              <img src={snackicon} alt="" /> Snacks
-            </button>
-          </div>
-        </div>
-        <button className='add-product-btn' onClick={() => addMenuClicked()}>Add New Menu</button>
-        <div className="product-page-list-cont">
-          {dataSearch.map((item,index) => (
-            <div className="product-page-item" key={item._id}>
-              <div className="product-info-lg">
-                <img src={`http://localhost:5000/${item.image}`}alt="" className="product-img-lg" />
+          <button className='add-product-btn' onClick={() => addMenuClicked()}>Add New Menu</button>
+          <div className="product-page-list-cont">
+            {dataSearch.map((item, index) => (
+              <div className="product-page-item" key={item._id}>
+                <div className="product-info-lg">
+                  <img src={`http://localhost:5000/${item.image}`} alt="" className="product-img-lg" />
                   <div className="product-detail-lg">
                     <p className="product-name-lg">{item.name}</p>
                     <p className="product-desc-lg">{item.description}</p>
-                    <p className="product-price-lg">Rp.{item.price}</p>
+                    <p className="product-price-lg">{formatRupiah(item.price)}</p>
                   </div>
+                </div>
+                <div className="button-cont">
+                  <button className='delete-btn' onClick={() => deleteMenuClicked(item._id)}>Delete</button>
+                  <button className="edit-btn" onClick={() => editMenuClicked(item._id)}>Edit</button>
+                </div>
               </div>
-              <div className="button-cont">
-                <button className='delete-btn' onClick={() => deleteMenuClicked(item._id)}>Delete</button>
-                <button className="edit-btn" onClick={() => editMenuClicked(item._id)}>Edit</button>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 import Sidebar from '../Sidebar/Sidebar'
 import './cashier.css'
 import allicon from '../../../assets/allicon.svg'
@@ -19,17 +19,17 @@ import { orderActions } from '../../../store/orderSlice'
 
 const Cashier = () => {
   //===========Fetch data dari API==================================
-  const {data:foods,isLoading,error} = useFetch('http://localhost:5000/api/foods')
-  const [data,setData] = useState(foods)
-  useEffect(()=>{
+  const { data: foods, isLoading, error } = useFetch('http://localhost:5000/api/foods')
+  const [data, setData] = useState(foods)
+  useEffect(() => {
     setData(foods)
-  },[foods])
+  }, [foods])
   //=====================Slider Category==================================
   const categorySlider = useRef();
-  const[width,setWidth] = useState(0)
-  useEffect(()=> {
+  const [width, setWidth] = useState(0)
+  useEffect(() => {
     setWidth(categorySlider.current.scrollWidth - categorySlider.current.offsetWidth)
-  },[])
+  }, [])
   //=======Filter Category======================================
   const categoryFilter = (categoryItem) => {
     const result = foods.filter((filteredFoods) => {
@@ -39,12 +39,12 @@ const Cashier = () => {
   }
 
   //======================Searchbar========================================
-  const [filter,setFilter] = useState('')
+  const [filter, setFilter] = useState('')
   const searchText = (e) => {
     setFilter(e.target.value)
   }
   let dataSearch = data.filter(item => {
-    return Object.keys(item).some(key => 
+    return Object.keys(item).some(key =>
       item[key].toString().toLowerCase().includes(filter.toString().toLowerCase()))
   })
 
@@ -59,9 +59,9 @@ const Cashier = () => {
     dispatch(
       cartActions.addToCart({
         name: data[i].name,
-        _id:data[i]._id,
-        price:data[i].price,
-        image:data[i].image
+        _id: data[i]._id,
+        price: data[i].price,
+        image: data[i].image
       })
     )
     console.log(data[i]._id)
@@ -69,51 +69,57 @@ const Cashier = () => {
 
   const incrementCartItem = (i) => {
     dispatch(cartActions.addToCart({
-      _id:cartItems[i]._id,
-      name:cartItems[i].name,
-      price:cartItems[i].price,
-      image:cartItems[i].image
+      _id: cartItems[i]._id,
+      name: cartItems[i].name,
+      price: cartItems[i].price,
+      image: cartItems[i].image
     }))
     console.log(cartItems[i])
   }
   const decrementCartItem = (i) => {
     dispatch(cartActions.removeFromCart(cartItems[i]._id))
-    }
+  }
   //===================Buat Button Place Order + Popup======================
-  
-  const [placeorder,setPlaceOrder] = useState(false)
+
+  const [placeorder, setPlaceOrder] = useState(false)
   const handleClick = () => {
     //=============Redux Buat Order Info ==============================
     dispatch(cartActions.totalAllPrice(total))
     dispatch(orderActions.orderInfo({
-    item:cartItems,
-    subtotal:total,
-    totalAllPrice:total + (total * 0.1)
-  }))
+      item: cartItems,
+      subtotal: total,
+      totalAllPrice: total + (total * 0.1)
+    }))
     setPlaceOrder(true)
   }
 
-  
+  const formatRupiah = (money) => {
+    return new Intl.NumberFormat('id-ID',
+      { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }
+    ).format(money);
+  }
+
+
 
   return (
     <>
-    <div className="cashier-cont">
-      {placeorder && <PlaceOrder cartItems={cartItems} handleCancel={value => setPlaceOrder(value)} subtotal={total}/>}
-      <Sidebar/>
       <div className="cashier-cont">
-        <div className="product-cont">
-          <h1>Choose Category</h1>
-          {dataSearch.map((item) => (
-             <button className='category-btn-big' onClick={() => categoryFilter(item.category)}>
-              <img src={signatureicon} alt="" /> {item.category}
-            </button>
-          ))} 
+        {placeorder && <PlaceOrder cartItems={cartItems} handleCancel={value => setPlaceOrder(value)} subtotal={total} />}
+        <Sidebar />
+        <div className="cashier-cont">
+          <div className="product-cont">
+            <h1>Choose Category</h1>
+            {dataSearch.map((item) => (
+              <button className='category-lookup' onClick={() => categoryFilter(item.category)}>
+                <img src={signatureicon} alt="" /> {item.category}
+              </button>
+            ))}
             <div className="category-cont-cashier">
               <motion.div ref={categorySlider} className='category-slider'>
-                <motion.div 
-                drag="x" 
-                className='category-inner-carousel' 
-                dragConstraints={{right:0,left: -width}}
+                <motion.div
+                  drag="x"
+                  className='category-inner-carousel'
+                  dragConstraints={{ right: 0, left: -width }}
                 >
                   <motion.div className='category-item'>
                     <button className='category-btn-big' onClick={() => setData(foods)}>
@@ -174,60 +180,60 @@ const Cashier = () => {
             </div>
 
             <div className="product-list">
-              {dataSearch.map((item,index) => (
+              {dataSearch.map((item, index) => (
                 <div className="product-item" key={item._id}>
                   <div className="product-detail-cashier">
-                    <img src={`http://localhost:5000/${item.image}`} alt="" className='product-img'/>
-                      <div className="product-info">
-                        <p className="product-name">{item.name}</p>
-                        <p className="product-desc">{item.description}</p>
-                        <p className="product-price">Rp.{item.price}</p>
-                      </div>
+                    <img src={`http://localhost:5000/${item.image}`} alt="" className='product-img' />
+                    <div className="product-info">
+                      <p className="product-name">{item.name}</p>
+                      <p className="product-desc">{item.description}</p>
+                      <p className="product-price">{formatRupiah(item.price)}</p>
+                    </div>
                   </div>
-                 {item.status === "Available" && <button className='add-order-btn' onClick={() => addToOrder(index)}>Add to Order</button>}
-                 {item.status === "Out" && <p className='out-desc'>Out of Stock</p>}
+                  {item.status === "Available" && <button className='add-order-btn' onClick={() => addToOrder(index)}>Add to Order</button>}
+                  {item.status === "Out" && <p className='out-desc'>Out of Stock</p>}
                 </div>
               ))}
             </div>
-        </div>
-        <div className="order-cart">
-          <h1>Current Order</h1>
-          <div className="order-cart-list">
-            {cartItems.map((item,index) => (
-              <div className="order-item-cashier" key={item._id}>
-                <img src={`http://localhost:5000/${item.image}`} alt="" className='order-item-img' />
-                <div className="order-item-desc">
-                  <p className='order-item-name'>{item.name}</p>
-                  <p className="order-item-price">Rp.{item.price}</p>
-                </div>
-                <div className="quantity">
-                  <button className='quant-btn' onClick={() => incrementCartItem(index)}>+</button>
-                  <p>{item.quantity}</p>
-                  <button className='quant-btn' onClick={() => decrementCartItem(index)}>-</button>
-                </div>
-              </div>
-            ))}
           </div>
-          <div className="total-cont">
-            <div className="price-detail-cashier">
+          <div className="order-cart">
+            <h1>Current Order</h1>
+            <div className="order-cart-list">
+              {cartItems.map((item, index) => (
+                <div className="order-item-cashier" key={item._id}>
+                  <img src={`http://localhost:5000/${item.image}`} alt="" className='order-item-img' />
+                  <div className="order-item-desc">
+                    <p className='order-item-name'>{item.name}</p>
+                    <p className="order-item-price">{formatRupiah(item.price)}</p>
+                  </div>
+                  <div className="quantity">
+                    <button className='quant-btn' onClick={() => incrementCartItem(index)}>+</button>
+                    <p>{item.quantity}</p>
+                    <button className='quant-btn' onClick={() => decrementCartItem(index)}>-</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="total-cont">
+              <div className="price-detail-cashier">
                 <div className="subtotal-detail">
                   <p>Subtotal</p>
-                  <p>Rp.{total}</p>
+                  <p>{formatRupiah(total)}</p>
                 </div>
                 <div className="tax-detail">
                   <p>Tax (10%)</p>
-                  <p>Rp.{total * 0.1}</p>
+                  <p>{formatRupiah(total * 0.1)}</p>
                 </div>
                 <div className="total-detail">
                   <p>Total</p>
-                  <p>Rp.{total + (total * 0.1)}</p>
+                  <p>{formatRupiah(total + (total * 0.1))}</p>
                 </div>
               </div>
+            </div>
+            <button className='addorder-btn' onClick={() => handleClick()} disabled={!total}>Place Order</button>
           </div>
-          <button className='addorder-btn' onClick={() => handleClick()} disabled={!total}>Place Order</button>
         </div>
       </div>
-    </div>
     </>
   )
 }

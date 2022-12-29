@@ -1,42 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const orderSlice = createSlice({
-  name:'order',
-  initialState:{
+  name: 'order',
+  initialState: {
     orderType: '',
-    paymentMethod:'',
-    paidOrder:false,
+    paymentMethod: '',
+    paidOrder: false,
     checkOut: true,
-    changed:false,
-    orderDetail:[],
-    user:[],
-    discount:'',
+    changed: false,
+    orderDetail: [],
+    user: [],
+    discount: ''
   },
-  reducers:{
-    addpaymentMethod(state,action){
+  reducers: {
+    addpaymentMethod(state, action) {
       state.changed = true;
       state.paymentMethod = action.payload;
     },
-    addOrderType(state,action){
+    addOrderType(state, action) {
       state.changed = true;
       state.orderType = action.payload;
     },
-    checkOutStatus(state,action){
+    checkOutStatus(state, action) {
       state.changed = true;
       state.checkOut = action.payload;
     },
-    payStatus(state,action){
+    payStatus(state, action) {
       state.changed = true;
       state.paidOrder = action.payload;
     },
-    userInfo (state,action){
+    userInfo(state, action) {
       state.changed = true;
       state.user = action.payload;
     },
-    orderInfo(state,action){
+    orderInfo(state, action) {
       state.orderDetail = action.payload
     },
-    addDiscount(state,action){
+    addDiscount(state, action) {
       state.discount = action.payload
     }
   }
