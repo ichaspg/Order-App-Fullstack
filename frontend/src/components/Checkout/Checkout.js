@@ -86,7 +86,7 @@ const Checkout = () => {
                         <p className='sub-price'>{formatRupiah(subtotal)}</p>
                     </div>
                     <div className="tax-cont">
-                        <p className="tax-title">Order Fee</p>
+                        <p className="tax-title">Tax(10%)</p>
                         <p className="tax-price">{formatRupiah(subtotal * 0.1)}</p>
                     </div>
                 </div>
